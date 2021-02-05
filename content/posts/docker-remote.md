@@ -8,9 +8,7 @@ date: 2021-02-04T18:36:13+08:00
 
 # ssh方式
 
-> 注意docker 服务器端版本需要大于18.09，参考：https://code.visualstudio.com/docs/containers/ssh
-
-`docker version`查看版本
+> 注意docker 服务器端版本需要大于18.09,可以用`docker version`查看版本，参考：https://code.visualstudio.com/docs/containers/ssh
 
 ## 配置ssh key
 
@@ -34,7 +32,9 @@ date: 2021-02-04T18:36:13+08:00
 
 1. 找到docker进程：`ps aux|grep docker`，返回下面内容
 
-`root     21531  3.6  0.7 1855448 70880 ?       Ssl  Jan29 365:06 /var/packages/Docker/target/usr/bin/dockerd --config-file /var/packages/Docker/etc/dockerd.json`
+```
+root     21531  3.6  0.7 1855448 70880 ?       Ssl  Jan29 365:06 /var/packages/Docker/target/usr/bin/dockerd --config-file /var/packages/Docker/etc/dockerd.json
+```
 
 2. 可以看到dockerd.json就是对应的配置文件
 
@@ -65,7 +65,7 @@ date: 2021-02-04T18:36:13+08:00
 
 修改 `sudo vi /lib/systemd/system/docker.service`
 
-在[Service]段落中替换 `ExecStart=/usr/bin/dockerd -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock`
+在`[Service]`段落中替换 `ExecStart=/usr/bin/dockerd -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock`
 
 
 ## 生成证书
@@ -87,11 +87,11 @@ date: 2021-02-04T18:36:13+08:00
 
 常用命令有：
 
-查看context：`$ docker context ls`
+* 查看context：`$ docker context ls`
 
-创建context：`docker context create [name] --docker "host=ssh://[user]@[ip]:[port]"`
+* 创建context：`docker context create [name] --docker "host=ssh://[user]@[ip]:[port]"`
 
-切换context：`docker context use [name]`，默认context的为default。
+* 切换context：`docker context use [name]`，默认context的为default。
 
 
 # 不加sudo
