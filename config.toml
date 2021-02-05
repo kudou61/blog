@@ -1,6 +1,7 @@
 baseURL = "http://kudou61.github.io/"
 languageCode = "zh-CN"
 title = "ThunderBuddy"
+description = "写点有趣的"
 theme = "maupassant"
 
 summaryLength = 40 
