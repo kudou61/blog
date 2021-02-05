@@ -51,3 +51,28 @@ $ ssh user@host 'mkdir -p .ssh && cat >> .ssh/authorized_keys' < ~/.ssh/id_rsa.p
 
 运行时会要求输入 user 用户的密码，认证通过后，会在 host 的\$HOME/.ssh 目录下创建 authorized_keys 文件，用户的公钥就保存在这个文件中。
 传送完毕后，可以再登陆一次，看看是否还需要密码。
+
+# .ssh权限
+
+如果登录一直失败，可以检查下authorized_keys文件权限是否644
+
+```bash
+➜  ~ ll .ssh
+total 20K
+-rw-r--r--  1 aaron users  407 Dec 30 14:57 authorized_keys
+-rw-r--r--  1 aaron users   26 Jan 26 19:31 environment
+-rw-------  1 aaron users  411 Dec 23 17:59 id_ed25519
+-rwxrwxrwx+ 1 aaron users  101 Dec 23 17:54 id_ed25519.pub
+-rwxrwxrwx+ 1 aaron users 1.8K Jan 26 14:50 known_hosts
+```
+
+# ssh登录配置
+
+在`/etc/ssh/sshd_config`文件有相关配置
+
+```
+# 是否启用公钥登录
+PubkeyAuthentication yes
+# 是否启用密码验证登录
+PasswordAuthentication yes
+```
