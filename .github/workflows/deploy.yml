@@ -28,7 +28,9 @@ jobs:
        - name: checkout submodules
          shell: bash
          run: |
-          auth_header="$(git config --local --get http.https://github.com/.extraheader)"
+          git config --file .gitmodules --get-regexp url | while read url; do
+            git config --file=.gitmodules $(echo "$url" | sed -E "s/git@github.com:|https:\/\/github.com\//https:\/\/${{ secrets.ACTIONS_DEPLOY_KEY }}:${{ secrets.ACTIONS_DEPLOY_KEY }}@github.com\//")
+          done
           git submodule sync --recursive
           git -c "http.extraheader=$auth_header" -c protocol.version=2 submodule update --init --force --recursive --depth=1
        # 我的公開網站是放置在另一個 repo 所以這裡也要 clone 一份下來處理
